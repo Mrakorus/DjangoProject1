@@ -6,10 +6,32 @@ from .models import Post
 
 # def index(request):
 #     return HttpResponse('test site')
+# fr = 0
+# lr = 10
 
-def index(request):
-    lastPostList = Post.objects.order_by('-postDatePublication')[:10]
-    return render(request, 'posts/main.html', {'lastPostList': lastPostList})
+
+def index(request, fr=1, lr=11, page=1, numpage=[1,]):
+    filtrate = Post.objects.filter(published=True)
+    lastPostList = filtrate.order_by('-postDatePublication')[fr-1:lr-1]
+    return render(request, 'posts/main.html', {'lastPostList': lastPostList, 'mpage': page, 'mnumpage': numpage})
+
+
+def page(request, page=1):
+    n = len(Post.objects.filter(published=True))
+    i = 1
+    fr = 1
+    to = 11
+    while n >= 1:
+        if page == i:
+            break
+        n -= 10
+        fr += 10
+        to += 10
+        i += 1
+    ar = [i + 1 for i in range(i)]
+    # if not ar:
+    #     ar = [1]
+    return index(request, fr, to, page=page, numpage=ar) # render(request, 'posts/page.html', {'page': page})
 
 
 def detail(request, postId):
@@ -18,6 +40,7 @@ def detail(request, postId):
     except:
         raise Http404('Пост не найден')
     return render(request, 'posts/detail.html', {'post': a})
+
 
 
 

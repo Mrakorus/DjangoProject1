@@ -52,12 +52,15 @@
 {% endfor %}
 {% endif %}
 <div class="page-navi">
-    <p>Page 1 of 3</p>
+    <p>Page {{ mpage }} of {{ mnumpage|length }}</p>
     <ul>
-        <li><a href="#" class="current">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
+        {% for i in mnumpage %}
+        <li><a href="{% url 'posts:page' i %}" {% if mpage == i %}class="current"{% endif %} >{{ i }}</a></li>
+        {% endfor %}
+<!--        <li><a href="#">2</a></li>-->
+<!--        <li><a href="#">3</a></li>-->
     </ul>
 </div>
-
 {% endblock %}
+
+
