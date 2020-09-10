@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}{{post.postTitle}}{% endblock %}
+
+{% block content %}
+
+<div class="post">
+    <!-- Begin Post Info -->
+    <div class="post-info">
+        <!-- Begin Date -->
+        <div class="post-date">
+            <span class="day">{{post.postDatePublication.day}}</span>
+            <span class="month">{{post.postDatePublication|date:"M"}}</span>
+            <span class="year">{{post.postDatePublication.year}}</span>
+        </div>
+        <!-- End Date -->
+        <!-- Begin Title -->
+        <div class="post-title">
+            <h1>{{post.postTitle}}</h1>
+<!--            <div class="post-meta">-->
+<!--                <span class="comments">-->
+<!--                    <a href="#">13 Comments</a>-->
+<!--                </span>-->
+<!--                <span class="categories">-->
+<!--                <a href="#">Web Design</a>, <a href="#">Photography</a>-->
+<!--                </span>-->
+<!--            </div>-->
+        </div>
+        <!-- End Title -->
+    </div>
+    <!-- End Post Info -->
+<!--<h1>{{post.postTitle}}</h1>-->
+<!--<p>{{post.postAuthor}}</p>-->
+<!--<p>{{post.postText}}</p>-->
+<!--<p>{{post.postDateCreate}}</p>-->
+<!--<p>{{post.postDatePublication}}</p>-->
+<!--<p>{{post.postDateLastRefresh}}</p>-->
+<!--<p>{{post.image}}</p>-->
+    <div class="post-text">
+        {% if post.image %}
+            <img src="{{post.image.url}}" alt=""/>
+            <br/>
+        {% endif %}
+        <p>{{post.postText}}</p>
+    </div>
+    <!-- End Text -->
+    <span class="tags"><a href="#">Black & White</a>, <a href="#">Color</a>, <a href="#">Portfolio</a></span>
+    <span class="postsPostInform">Автор: {{post.postAuthor}}</span>
+    <span class="postsPostInform">Время создания: {{post.postDateCreate}}</span>
+    <span class="postsPostInform">Время публикации: {{post.postDateCreate}}</span>
+    <span class="postsPostInform">Время последнего обновления: {{post.postDateLastRefresh}}</span>
+</div>
+
+{% endblock %}

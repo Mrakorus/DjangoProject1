@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<h2>Latest Posts</h2>
+{% if lastPostList %}
+{% for i in lastPostList %}
+<div class="post">
+    <!-- Begin Post Info -->
+    <div class="post-info">
+        <!-- Begin Date -->
+        <div class="post-date">
+            <span class="day">{{i.postDatePublication.day}}</span>
+            <span class="month">{{i.postDatePublication|date:"M"}}</span>
+            <span class="year">{{i.postDatePublication.year}}</span>
+        </div>
+        <!-- End Date -->
+        <!-- Begin Title -->
+        <div class="post-title">
+            <h1><a href="{% url 'posts:detail' i.id %}">{{i.postTitle}}</a></h1>
+            <!--            <div class="post-meta">-->
+            <!--                <span class="comments">-->
+            <!--                    <a href="#">13 Comments</a>-->
+            <!--                </span>-->
+            <!--                <span class="categories">-->
+            <!--                <a href="#">Web Design</a>, <a href="#">Photography</a>-->
+            <!--                </span>-->
+            <!--            </div>-->
+        </div>
+        <!-- End Title -->
+    </div>
+    <!-- End Post Info -->
+
+    <div class="post-text">
+        {% if i.image %}
+        <a href="{% url 'posts:detail' i.id %}">
+
+            <img src="{{i.image.url}}" alt=""/>
+
+        </a> <br/>
+        {% endif %}
+        <p>{{i.showPartOfText}}<a class="more" href="{% url 'posts:detail' i.id %}">Continue Reading
+            →</a>
+        </p>
+    </div>
+    <!-- End Text -->
+    <span class="tags"><a href="#">Black & White</a>, <a href="#">Color</a>, <a href="#">Portfolio</a></span>
+</div>
+
+
+{% endfor %}
+{% endif %}
+<div class="page-navi">
+    <p>Page 1 of 3</p>
+    <ul>
+        <li><a href="#" class="current">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+    </ul>
+</div>
+
+{% endblock %}
