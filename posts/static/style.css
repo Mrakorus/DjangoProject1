@@ -1892,3 +1892,63 @@ ol.commentlist li {
     /*padding-left: 30px;*/
     margin-top: 10px;
 }
+
+.post-text{
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.loginLink{
+    text-align:center
+}
+
+.login{
+    background: #5499c3 url(style/images/button.png) repeat-x;
+	border: none;
+	height: 50px;
+	width: 150px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #e2e2e2;
+	font-family: 'CharisSILItalic';
+	font-size: 20px;
+	/*padding: 0 20px 1px 20px;*/
+	cursor: pointer;
+	margin: 30px auto;
+}
+.username{
+    font-size: 30px;
+}
+.linkToAdmin{
+    background: #3080a4 url(style/images/button.png) repeat-x;
+    border: none;
+	height: 60px;
+	width: 200px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #54E7C3;
+	font-family: 'CharisSILItalic';
+	font-size: 20px;
+	/*padding: 0 20px 1px 20px;*/
+	cursor: pointer;
+	margin: 10px auto;
+}
+.sublogin{
+    height: 40px;
+	width: 100px;
+	background: rgba(68,231,211, 0.8);
+    color: rgb(0, 0, 0);
+	font-family: 'CharisSILItalic';
+	font-size: 20px;
+	cursor: pointer;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+

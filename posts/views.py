@@ -10,28 +10,27 @@ from .models import Post
 # lr = 10
 
 
-def index(request, fr=1, lr=11, page=1, numpage=[1,]):
+def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
+    fr = 0
+    lr = fr + 10
     filtrate = Post.objects.filter(published=True)
-    lastPostList = filtrate.order_by('-postDatePublication')[fr-1:lr-1]
-    return render(request, 'posts/main.html', {'lastPostList': lastPostList, 'mpage': page, 'mnumpage': numpage})
-
-
-def page(request, page=1):
-    n = len(Post.objects.filter(published=True))
+    n = len(filtrate)
     i = 1
-    fr = 1
-    to = 11
-    while n >= 1:
-        if page == i:
-            break
-        n -= 10
-        fr += 10
-        to += 10
-        i += 1
-    ar = [i + 1 for i in range(i)]
+    while i != page:
+        fr = lr
+        lr = lr + 10
+        i = i + 1
+
+    ar = [ii + 1 for ii in range((n // 10) + 1)]
+    lastPostList = filtrate.order_by('-postDatePublication')[fr:lr]
+    return render(request, 'posts/main.html', {'lastPostList': lastPostList, 'mpage': page, 'mnumpage': ar})
+
+
+# def page(request, page=1):
+
     # if not ar:
     #     ar = [1]
-    return index(request, fr, to, page=page, numpage=ar) # render(request, 'posts/page.html', {'page': page})
+    # return index(request, fr, to, page=page, numpage=ar) # render(request, 'posts/page.html', {'page': page})
 
 
 def detail(request, postId):

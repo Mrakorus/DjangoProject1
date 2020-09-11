@@ -24,6 +24,9 @@ STATIC_ROOT = os.path.join(PROJECT__ROOT, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'assets')
 
 MEDIA_URL = '/assets/'
+
+LOGIN_REDIRECT_URL = '/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
