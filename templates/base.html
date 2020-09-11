@@ -109,13 +109,14 @@
             <div class="sidebar-box">
                 <div class="sidebar-box loginLink">
                     {% if user.is_authenticated %}
-                    <h4 class="username">Welcome: {{ user.get_username }}</h4>
+                    <h4 class="username">Welcome, {{ user.get_username }}</h4>
                     <a href="{% url 'admin:index' %}" ><button class="linkToAdmin">Link to Admin Panel</button></a>
                     <a href="{% url 'logout'%}?next={{request.path}}" ><button class="login">Logout</button></a>
                     {% else %}
                     <a href="{% url 'login'%}?next={{request.path}}" ><button class="login">Login</button></a>
                     {% endif %}
                 </div>
+                <div class="sidebar-box tags">
                 <h4>Tags</h4>
                 <div class="tag-list">
                     <ul>
@@ -130,6 +131,7 @@
                         <li><a href="#">color</a></li>
                         <li><a href="#">portfolio</a></li>
                     </ul>
+                </div>
                 </div>
             </div>
 

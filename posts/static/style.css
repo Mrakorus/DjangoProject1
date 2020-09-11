@@ -1950,5 +1950,7 @@ ol.commentlist li {
 	border-radius: 5px;
 	margin-bottom: 10px;
 }
-
+.sidebar-box .tags{
+display:none
+}
 

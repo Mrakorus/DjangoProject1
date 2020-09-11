@@ -6,8 +6,8 @@ import datetime
 
 class Post(models.Model):
 
-    # class Meta():
-    #     ordering = ["postDateCreate"]
+    class Meta():
+        ordering = ["postDateCreate"]
 
     postTitle = models.CharField('postTitle', max_length=200)
     postAuthor = models.CharField('authorName', max_length=50)
@@ -28,5 +28,8 @@ class Post(models.Model):
 
     def showPartOfText(self, how=300):
         return self.postText[:how]
+
+    def __str__(self):
+        return self.postTitle
 
 # class User
