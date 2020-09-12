@@ -63,9 +63,9 @@ def detail(request, postId):
     return render(request, 'posts/detail.html', {'post': a})
 
 
-def category(request, category_id):
+def category(request, category_id, pg=1):
     global gpage
-    gpage = 1
+    gpage = pg
     postsOfCateg = Post.objects.filter(category=category_id, published=True)
     resdict = dict()
     resdict.update(pagePrep(postsOfCateg))
