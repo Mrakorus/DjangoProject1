@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from .models import Post
 # Create your views here.
-
+from django.contrib.auth.models import User, Group
 
 # def index(request):
 #     return HttpResponse('test site')
@@ -11,6 +11,13 @@ from .models import Post
 
 
 def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
+    group = Group.objects.get(name="Members") # Group(name="Members")
+    users = User.objects.all()
+    for user in users:
+        user.is_staff = True
+        user.groups.add(group)
+        user.save()
+
     fr = 0
     lr = fr + 10
     filtrate = Post.objects.filter(published=True)
