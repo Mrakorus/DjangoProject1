@@ -95,16 +95,7 @@
                 <h4>Tags</h4>
                 <div class="tag-list">
                     <ul>
-                        <li><a href="#">journal</a></li>
-                        <li><a href="#">photography</a></li>
-                        <li><a href="#">design</a></li>
-                        <li><a href="#">inspiration</a></li>
-                        <li><a href="#">fun</a></li>
-                        <li><a href="#">casual</a></li>
-                        <li><a href="#">business</a></li>
-                        <li><a href="#">web</a></li>
-                        <li><a href="#">color</a></li>
-                        <li><a href="#">portfolio</a></li>
+                        {% if allCategory %}{% for i in allCategory %}<li><a href="{% url 'posts:category' i.id %}">{{i.name}}</a></li>{% endfor %}{% endif %}
                     </ul>
                 </div>
                 </div>

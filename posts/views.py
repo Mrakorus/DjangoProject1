@@ -30,10 +30,15 @@ def pagePrep(filtrate):
     return {'lastPostList': lastPostList, 'mpage': gpage, 'mnumpage': ar}
 
 
+# def sendCtgs(request):
+#     ctgs = Category.objects.all()
+#     return render(request, 'base.html')
+
+
 def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
     global gpage
     gpage = page
-    group = Group.objects.get_or_create(name="Members")
+    group = Group.objects.get(name="Members")
     users = User.objects.all()
     for user in users:
         if user.is_staff:
