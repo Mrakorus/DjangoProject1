@@ -3,6 +3,8 @@ import datetime
 # from django.contrib.auth.models import User
 
 
+
+
 class Post(models.Model):
 
     class Meta():
@@ -16,6 +18,7 @@ class Post(models.Model):
     postDateLastRefresh = models.DateTimeField('dateOfRefresh', auto_now=True)
     published = models.BooleanField('published', default=False)
     image = models.ImageField('image', blank=True, null=True, upload_to='posts/')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, blank=True)
 
     def save(self, *args, **kwargs):
 
@@ -31,4 +34,10 @@ class Post(models.Model):
     def __str__(self):
         return self.postTitle
 
-# class User
+
+class Category(models.Model):
+    name = models.CharField(max_length=20, db_index=True)
+
+    def __str__(self):
+        return self.name
+

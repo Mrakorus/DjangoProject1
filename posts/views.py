@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
-from .models import Post
+from .models import Post, Category
 # Create your views here.
 from django.contrib.auth.models import User, Group
 
@@ -11,12 +11,16 @@ from django.contrib.auth.models import User, Group
 
 
 def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
-    group = Group.objects.get(name="Members") # Group(name="Members")
+
+    group = Group.objects.get_or_create(name="Members") # Group(name="Members")
     users = User.objects.all()
     for user in users:
-        user.is_staff = True
-        user.groups.add(group)
-        user.save()
+        if user.is_staff:
+            continue
+        else:
+            user.is_staff = True
+            user.groups.add(group)
+            user.save()
 
     fr = 0
     lr = fr + 10
@@ -30,7 +34,9 @@ def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
 
     ar = [ii + 1 for ii in range(n // 10)]
     lastPostList = filtrate.order_by('-postDatePublication')[fr:lr]
-    if n % 10 != 0:
+    if not ar:
+        ar.append(1)
+    elif n % 10 != 0:
         ar.append(ar[-1] + 1)
     # if not lastPostList:
     #     ar.pop()
@@ -52,6 +58,12 @@ def detail(request, postId):
     return render(request, 'posts/detail.html', {'post': a})
 
 
+def category(request, category_id):
+    postsOfCateg = Post.objects.filter(category=category_id)
+    allCategory = Category.objects.all()
+    nowCategory = Category.objects.get(pk=category_id)
+    return render(request, 'posts/category.html', {'postsOfCateg': postsOfCateg, 'allCategory': allCategory,
+                                                   'nowCategory': nowCategory})
 
 
 
