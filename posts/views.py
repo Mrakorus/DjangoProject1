@@ -8,26 +8,15 @@ from django.contrib.auth.models import User, Group
 #     return HttpResponse('test site')
 # fr = 0
 # lr = 10
+gpage = 1
 
-
-def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
-
-    group = Group.objects.get_or_create(name="Members") # Group(name="Members")
-    users = User.objects.all()
-    for user in users:
-        if user.is_staff:
-            continue
-        else:
-            user.is_staff = True
-            user.groups.add(group)
-            user.save()
-
+def pagePrep(filtrate):
     fr = 0
     lr = fr + 10
-    filtrate = Post.objects.filter(published=True)
+    global gpage
     n = len(filtrate)
     i = 1
-    while i != page:
+    while i != gpage:
         fr = lr
         lr = lr + 10
         i = i + 1
@@ -38,9 +27,25 @@ def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
         ar.append(1)
     elif n % 10 != 0:
         ar.append(ar[-1] + 1)
-    # if not lastPostList:
-    #     ar.pop()
-    return render(request, 'posts/main.html', {'lastPostList': lastPostList, 'mpage': page, 'mnumpage': ar})
+    return {'lastPostList': lastPostList, 'mpage': gpage, 'mnumpage': ar}
+
+
+def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
+    global gpage
+    gpage = page
+    group = Group.objects.get_or_create(name="Members")
+    users = User.objects.all()
+    for user in users:
+        if user.is_staff:
+            continue
+        else:
+            user.is_staff = True
+            user.groups.add(group)
+            user.save()
+    filtrate = Post.objects.filter(published=True)
+    resdict = pagePrep(filtrate)
+    resdict['allCategory'] = Category.objects.all()
+    return render(request, 'posts/main.html', resdict)
 
 
 # def page(request, page=1):
@@ -59,11 +64,14 @@ def detail(request, postId):
 
 
 def category(request, category_id):
-    postsOfCateg = Post.objects.filter(category=category_id)
-    allCategory = Category.objects.all()
-    nowCategory = Category.objects.get(pk=category_id)
-    return render(request, 'posts/category.html', {'postsOfCateg': postsOfCateg, 'allCategory': allCategory,
-                                                   'nowCategory': nowCategory})
+    global gpage
+    gpage = 1
+    postsOfCateg = Post.objects.filter(category=category_id, published=True)
+    resdict = dict()
+    resdict.update(pagePrep(postsOfCateg))
+    resdict['allCategory'] = Category.objects.all()
+    resdict['nowCategory'] = Category.objects.get(pk=category_id)
+    return render(request, 'posts/category.html', resdict)
 
 
 

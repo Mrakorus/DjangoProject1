@@ -44,6 +44,7 @@
             →</a>
         </p>
     </div>
+    <span class="tags"><a href="{% if i.category %}{% url 'posts:category' i.category.pk %}{% else %}#{% endif %}">{{i.category}}</a></span>
     <!-- End Text -->
 <!--    <span class="tags"><a href="#">Black & White</a>, <a href="#">Color</a>, <a href="#">Portfolio</a></span>-->
 </div>

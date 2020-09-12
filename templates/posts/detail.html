@@ -44,7 +44,7 @@
         <p>{{post.postText}}</p>
     </div>
     <!-- End Text -->
-<!--    <span class="tags"><a href="#">Black & White</a>, <a href="#">Color</a>, <a href="#">Portfolio</a></span>-->
+    <span class="tags"><a href="{% if post.category %}{% url 'posts:category' post.category.pk %}{% else %}#{% endif %}">{{post.category.name}}</a></span>
     <span class="postsPostInform">Автор: {{post.postAuthor}}</span>
     <span class="postsPostInform">Время создания: {{post.postDateCreate}}</span>
     <span class="postsPostInform">Время публикации: {{post.postDatePublication}}</span>
