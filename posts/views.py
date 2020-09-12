@@ -28,8 +28,12 @@ def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
         lr = lr + 10
         i = i + 1
 
-    ar = [ii + 1 for ii in range((n // 10) + 1)]
+    ar = [ii + 1 for ii in range(n // 10)]
     lastPostList = filtrate.order_by('-postDatePublication')[fr:lr]
+    if n % 10 != 0:
+        ar.append(ar[-1] + 1)
+    # if not lastPostList:
+    #     ar.pop()
     return render(request, 'posts/main.html', {'lastPostList': lastPostList, 'mpage': page, 'mnumpage': ar})
 
 
