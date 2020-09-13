@@ -46,7 +46,7 @@ def pagePrep(filtrate):
 
 # def sendCtgs(request):
 #     ctgs = Category.objects.all()
-#     return render(request, 'base.html')
+#     return render(request, 'base.html', {'allCategory': ctgs})
 
 
 def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
