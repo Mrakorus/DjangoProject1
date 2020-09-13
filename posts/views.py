@@ -8,9 +8,23 @@ from django.contrib.auth.models import User, Group
 #     return HttpResponse('test site')
 # fr = 0
 # lr = 10
+
+def initUsr():
+    group = Group.objects.get(name="Members")
+    users = User.objects.all()
+    for user in users:
+        if user.is_staff:
+            continue
+        else:
+            user.is_staff = True
+            user.groups.add(group)
+            user.save()
+
+
 gpage = 1
 
 def pagePrep(filtrate):
+    initUsr()
     fr = 0
     lr = fr + 10
     global gpage
@@ -38,15 +52,7 @@ def pagePrep(filtrate):
 def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
     global gpage
     gpage = page
-    group = Group.objects.get(name="Members")
-    users = User.objects.all()
-    for user in users:
-        if user.is_staff:
-            continue
-        else:
-            user.is_staff = True
-            user.groups.add(group)
-            user.save()
+    initUsr()
     filtrate = Post.objects.filter(published=True)
     resdict = pagePrep(filtrate)
     resdict['allCategory'] = Category.objects.all()
@@ -61,14 +67,17 @@ def index(request, page=1): # , fr=1, lr=11,  numpage=[1]
 
 
 def detail(request, postId):
+    initUsr()
     try:
         a = Post.objects.get(id=postId)
+        b = Category.objects.all()
     except:
         raise Http404('Пост не найден')
-    return render(request, 'posts/detail.html', {'post': a})
+    return render(request, 'posts/detail.html', {'post': a, 'allCategory': b})
 
 
 def category(request, category_id, pg=1):
+    initUsr()
     global gpage
     gpage = pg
     postsOfCateg = Post.objects.filter(category=category_id, published=True)
